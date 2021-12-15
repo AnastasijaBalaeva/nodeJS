@@ -1,0 +1,36 @@
+<html>
+    <meta charset="UTF-8">
+    <title>Бинарное дерево поиска</title>
+    <link rel="stylesheet" href="css/style.css">
+    <body>
+        <h1 class="h1 center">Бинарное дерево</h1>
+        <section class="section, block">
+            <h3 class="h3">Введите данные для бинарного дерева</h3>
+            <div class="field-group">
+                <input type="number" class="field field-input" name="binary-input" placeholder="Введите число"/>
+                <input type="number" class="field field-input" name="binary-key" placeholder="Введите ключ"/>
+                <button class="button binary-mod" id="add">Добавить</button>
+            </div>
+
+            <h3 class="h3">Введите данные для удаления узла</h3>
+            <div class="field-group">
+                <input type="number" class="field field-input" name="binary-key" placeholder="Введите число"/>
+                <button class="button binary-mod" id="del">Удалить</button>
+            </div>
+
+            <h3 class="h3">Поиск элемента</h3>
+            <div class="field-group">
+                <input type="number" class="field field-input" name="binary-key" placeholder="Введите число"/>
+                <button class="button binary-mod" id="find">Поиск</button>
+                <span id="find-output"></span>
+            </div>
+
+        </section>
+
+        <section class="section">
+            <ul class="binary-ul" id="binaryTreeStructure"></ul>
+        </section>
+        <div></div>
+        <script src="js/bundle.js"></script>
+    </body>
+</html>
