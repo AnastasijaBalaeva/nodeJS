@@ -1,4 +1,5 @@
 import { BinaryTree } from "./binarytree";
+
 const tree: BinaryTree<number> = new BinaryTree<number>();
 
 function nodeInititator(type: string, selector: HTMLElement): void {
@@ -10,25 +11,25 @@ function nodeInititator(type: string, selector: HTMLElement): void {
         case "add":
             tree.insert(parseFloat(el.value), parseFloat(key.value));
             tree.consoleIt();
-        break;
+            break;
         case "del":
             tree.delete(parseFloat(key.value));
             tree.consoleIt();
-        break;
+            break;
         case "find":
-            output.innerHTML = <string><unknown>tree.find(parseFloat(key.value)).value;
-        break;
+            output.innerHTML = tree.find(parseFloat(key.value)).value + "";
+            break;
     }
-    binaryUl.innerHTML = (<HTMLElement><unknown>tree.draw()).innerHTML;
+    binaryUl.innerHTML = tree.draw();
 }
 
 const initiator = document.querySelectorAll(".binary-mod");
 if (initiator) {
-    [].forEach.call(initiator, function(elem: object): void {
-        elem.addEventListener("click", function(e: object): void {
-            const param = e.target.getAttribute("id");
-            const selector = e.target;
-            nodeInititator(param, selector);
+    initiator.forEach(function (elem: Element): void {
+        elem.addEventListener("click", function (e: Event): void {
+            const element = (e.target as HTMLElement);
+            const param = element.getAttribute("id");
+            nodeInititator(param, element);
         });
     });
 }

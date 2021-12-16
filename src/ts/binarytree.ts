@@ -1,5 +1,4 @@
 import { BinaryNode } from "./binarynode";
-import construct = Reflect.construct;
 
 export class BinaryTree<T> {
     protected _root: BinaryNode<T> = null;
@@ -15,12 +14,9 @@ export class BinaryTree<T> {
             key = this.counter++;
         }
         const node: BinaryNode<T> = new BinaryNode<T>(value, key);
-        // tslint:disable-next-line:prefer-conditional-expression
-        if (this.isEmpty()) {
-            this._root = node;
-        } else {
-            this._root = this.insertNode(node, this._root);
-        }
+
+        this._root = this.isEmpty() ? node : this.insertNode(node, this._root);
+
     }
 
     protected insertNode(node: BinaryNode<T>, subtree: BinaryNode<T>): BinaryNode<T> {
@@ -46,9 +42,9 @@ export class BinaryTree<T> {
             throw new Error("Node isn't found");
         }
         if (subtree.key > key) {
-            subtree =  this.findNode(key, subtree.left);
+            subtree = this.findNode(key, subtree.left);
         } else if (subtree.key < key) {
-            subtree =  this.findNode(key, subtree.right);
+            subtree = this.findNode(key, subtree.right);
         } else if (subtree.key === key) {
             subtree = subtree;
         }
@@ -96,29 +92,30 @@ export class BinaryTree<T> {
         if (this.isEmpty()) {
             throw new Error("Three is empty");
         }
-        return <string><unknown>this.drawNode(this._root);
+        return this.drawNode(this._root).innerHTML;
     }
 
     public drawNode(subtree: BinaryNode<T>): HTMLElement {
         const nodeElement = document.createElement("li");
         const nodeChildElement = document.createElement("ul");
         const aElement = document.createElement("a");
+        const value = subtree.value.toString();
         if (subtree.left == null && subtree.right == null) {
-            nodeElement.innerHTML = `<a>${<string><unknown>subtree.value}</a>`;
+            nodeElement.innerHTML = `<a>${value}</a>`;
         } else if (subtree.right == null) {
-            nodeElement.innerHTML = `<a>${<string><unknown>subtree.value}</a>`;
+            nodeElement.innerHTML = `<a>${value}</a>`;
             nodeElement.classList.add("has-child", "left");
             nodeChildElement.append(this.drawNode(subtree.left));
             nodeChildElement.classList.add("left");
             nodeElement.append(nodeChildElement);
         } else if (subtree.left == null) {
-            nodeElement.innerHTML = `<a>${<string><unknown>subtree.value}</a>`;
+            nodeElement.innerHTML = `<a>${value}</a>`;
             nodeElement.classList.add("has-child", "right");
             nodeChildElement.append(this.drawNode(subtree.right));
             nodeChildElement.classList.add("right");
             nodeElement.append(nodeChildElement);
         } else {
-            aElement.innerHTML = <string><unknown>subtree.value;
+            aElement.innerHTML = value;
             nodeElement.append(aElement);
             nodeElement.classList.add("has-child");
             nodeChildElement.append(this.drawNode(subtree.left));
